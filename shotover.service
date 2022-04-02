@@ -6,7 +6,7 @@ After=syslog.target network-online.target
 
 [Service]
 Type=simple
-ExecStart=/root/shotover/shotover-proxy
+ExecStart=/usr/bin/shotover-proxy
 Restart=on-failure
 RestartSec=10
 KillMode=process
