@@ -18,10 +18,10 @@ pub struct Args {
     pub shotover_address: String,
 
     #[clap(short, long)]
-    pub cassandra_address: String,
+    pub direct_address: String,
 
     #[clap(short, long)]
-    pub duration: String,
+    pub time: String,
 
     #[clap(short, long)]
     pub connections: u64,
@@ -42,8 +42,8 @@ fn main() {
         latte.bench(
             bench,
             &args.shotover_address,
-            &args.cassandra_address,
-            &args.duration,
+            &args.direct_address,
+            &args.time,
             args.connections,
         );
 
@@ -52,13 +52,13 @@ fn main() {
             bench,
             &args.shotover_address,
             &args.shotover_address,
-            &args.duration,
+            &args.time,
             args.connections,
         );
 
         println!("{bench}: Direct Cassandra (A) vs Shotover (B)");
         latte.compare(
-            &format!("{bench}-{}.json", args.cassandra_address),
+            &format!("{bench}-{}.json", args.direct_address),
             &format!("{bench}-{}.json", args.shotover_address),
         );
     }
@@ -70,6 +70,11 @@ struct Latte {
 
 impl Latte {
     fn new(rate: u64) -> Latte {
+        run_command(
+            "cargo",
+            &["install", "--git", "https://github.com/pkolaczk/latte"],
+        )
+        .unwrap();
         Latte { rate }
     }
 
