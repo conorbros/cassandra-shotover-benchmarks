@@ -70,11 +70,6 @@ struct Latte {
 
 impl Latte {
     fn new(rate: u64) -> Latte {
-        run_command(
-            "cargo",
-            &["install", "--git", "https://github.com/pkolaczk/latte"],
-        )
-        .unwrap();
         Latte { rate }
     }
 
@@ -112,6 +107,7 @@ impl Latte {
                 address_load,
             ],
         );
+
         run_command_to_stdout(
             "latte",
             &[
