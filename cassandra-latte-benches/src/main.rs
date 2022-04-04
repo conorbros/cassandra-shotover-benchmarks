@@ -39,38 +39,29 @@ fn main() {
     // Read benches
     for bench in benches_list() {
         println!("{bench}: Benching Shotover ...");
-        bench_read(
-            &latte,
+        latte.bench(
+            bench,
             &args.shotover_address,
             &args.cassandra_address,
             &args.duration,
             args.connections,
         );
+
         println!("{bench}: Benching Direct Cassandra ...");
-        bench_read(
-            &latte,
+        latte.bench(
+            bench,
             &args.shotover_address,
-            &args.cassandra_address,
+            &args.shotover_address,
             &args.duration,
             args.connections,
         );
 
         println!("{bench}: Direct Cassandra (A) vs Shotover (B)");
         latte.compare(
-            "{bench}-{args.cassandra_address}.json",
-            "{bench}-{args.shotover_address}.json",
+            &format!("{bench}-{}.json", args.cassandra_address),
+            &format!("{bench}-{}.json", args.shotover_address),
         );
     }
-}
-
-fn bench_read(
-    latte: &Latte,
-    address_load: &str,
-    address_bench: &str,
-    duration: &str,
-    connections: u64,
-) {
-    latte.bench("read", address_load, address_bench, duration, connections)
 }
 
 struct Latte {
@@ -95,7 +86,7 @@ impl Latte {
         duration: &str,
         connections: u64,
     ) {
-        run_command(
+        run_command_to_stdout(
             "latte",
             &[
                 "schema",
@@ -107,9 +98,8 @@ impl Latte {
                 "--",
                 address_load,
             ],
-        )
-        .unwrap();
-        run_command(
+        );
+        run_command_to_stdout(
             "latte",
             &[
                 "load",
@@ -121,9 +111,8 @@ impl Latte {
                 "--",
                 address_load,
             ],
-        )
-        .unwrap();
-        run_command(
+        );
+        run_command_to_stdout(
             "latte",
             &[
                 "run",
@@ -143,8 +132,7 @@ impl Latte {
                 "--",
                 address_bench,
             ],
-        )
-        .unwrap();
+        );
     }
 
     fn compare(&self, first: &str, second: &str) {
