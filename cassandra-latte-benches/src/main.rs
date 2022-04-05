@@ -39,6 +39,8 @@ fn main() {
     let direct_address = format!("{}:9042", args.direct_address);
     let shotover_address = format!("{}:9043", args.shotover_address);
 
+    let threads = 4;
+
     // Read benches
     for bench in benches_list() {
         let bench_name = format!("workloads/{bench}");
@@ -46,25 +48,35 @@ fn main() {
         println!("{bench}: Benching Shotover ...");
         latte.bench(
             &bench_name,
+            &format!("{}-Shotover", bench_name),
             &direct_address,
             &shotover_address,
             &args.time,
             args.connections,
+            threads,
         );
 
         println!("{bench}: Benching Direct Cassandra ...");
         latte.bench(
             &bench_name,
+            &format!("{}-Cassandra", bench_name),
             &direct_address,
             &direct_address,
             &args.time,
             args.connections,
+            threads,
         );
 
         println!("{bench}: Direct Cassandra (A) vs Shotover (B)");
         latte.compare(
-            &format!("{bench_name}-{}.json", shotover_address),
-            &format!("{bench_name}-{}.json", direct_address),
+            &format!(
+                "{bench_name}-Cassandra-rate_{}-connections_{}-duration_{}-threads_{}.json",
+                args.rate, args.connections, args.time, threads
+            ),
+            &format!(
+                "{bench_name}-Shotover-rate_{}-connections_{}-duration_{}-threads_{}.json",
+                args.rate, args.connections, args.time, threads
+            ),
         );
     }
 }
@@ -86,13 +98,13 @@ impl Latte {
     fn bench(
         &self,
         name: &str,
+        output_name: &str,
         address_load: &str,
         address_bench: &str,
         duration: &str,
         connections: u64,
+        threads: u64,
     ) {
-        let threads = 4;
-
         run_command(
             "latte",
             &[
@@ -139,7 +151,10 @@ impl Latte {
                 "--connections",
                 &connections.to_string(), // Shotover performs extremely poorly with 1 connection and this is not currently an intended usecase
                 "--output",
-                &format!("{name}-{address_bench}.json"),
+                &format!(
+                    "{output_name}-rate_{}-connections_{}-duration_{}-threads_{}.json",
+                    self.rate, connections, duration, threads
+                ),
                 &format!("{name}.rn"),
                 "--",
                 address_bench,
