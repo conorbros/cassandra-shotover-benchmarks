@@ -43,8 +43,8 @@ fn main() {
         println!("{bench}: Benching Shotover ...");
         latte.bench(
             &bench_name,
-            &args.shotover_address,
             &args.direct_address,
+            &args.shotover_address,
             &args.time,
             args.connections,
         );
@@ -52,16 +52,16 @@ fn main() {
         println!("{bench}: Benching Direct Cassandra ...");
         latte.bench(
             &bench_name,
-            &args.shotover_address,
-            &args.shotover_address,
+            &args.direct_address,
+            &args.direct_address,
             &args.time,
             args.connections,
         );
 
         println!("{bench}: Direct Cassandra (A) vs Shotover (B)");
         latte.compare(
-            &format!("{bench_name}-{}.json", args.direct_address),
             &format!("{bench_name}-{}.json", args.shotover_address),
+            &format!("{bench_name}-{}.json", args.direct_address),
         );
     }
 }
