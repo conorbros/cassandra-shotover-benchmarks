@@ -88,7 +88,7 @@ impl Latte {
         duration: &str,
         connections: u64,
     ) {
-        run_command_to_stdout(
+        run_command(
             "latte",
             &[
                 "schema",
@@ -100,8 +100,9 @@ impl Latte {
                 "--",
                 address_load,
             ],
-        );
-        run_command_to_stdout(
+        )
+        .unwrap();
+        run_command(
             "latte",
             &[
                 "load",
@@ -113,9 +114,10 @@ impl Latte {
                 "--",
                 address_load,
             ],
-        );
+        )
+        .unwrap();
 
-        run_command_to_stdout(
+        run_command(
             "latte",
             &[
                 "run",
@@ -135,7 +137,8 @@ impl Latte {
                 "--",
                 address_bench,
             ],
-        );
+        )
+        .unwrap();
     }
 
     fn compare(&self, first: &str, second: &str) {
