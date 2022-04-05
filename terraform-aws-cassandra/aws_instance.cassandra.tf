@@ -64,6 +64,9 @@ resource "aws_instance" "benchmark_runner" {
 su -u ec2-user
 cd /home/ec2-user
 sudo -u ec2-user git clone https://github.com/conorbros/cassandra-shotover-benchmarks
+mv cassandra-shotover-benchmarks/cassandra-latte-benches/ .
+mv cassandra-shotover-benchmarks/stress-script.sh .
+sudo rm -r cassandra-shotover-benchmarks
 EOF
 HERE
 
