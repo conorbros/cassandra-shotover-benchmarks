@@ -1,4 +1,10 @@
 
 ADDRESS="${1}"
 
-cargo run --release -- -c 128 -d ${ADDRESS} -r 130000 -s ${ADDRESS} -t 60s
+RATE="${2}"
+
+TIME="${3}"
+
+CONNECTIONS="${4}"
+
+cargo run --release -- -c ${CONNECTIONS} -d ${ADDRESS} -r ${RATE} -s ${ADDRESS} -t ${3}
