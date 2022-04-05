@@ -88,6 +88,8 @@ impl Latte {
         duration: &str,
         connections: u64,
     ) {
+        let threads = 4;
+
         run_command(
             "latte",
             &[
@@ -125,6 +127,8 @@ impl Latte {
                 "cassandra",
                 "--password",
                 "cassandra",
+                "--threads",
+                &threads.to_string(),
                 "--rate",
                 &self.rate.to_string(),
                 "--duration",
