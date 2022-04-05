@@ -38,9 +38,11 @@ fn main() {
 
     // Read benches
     for bench in benches_list() {
+        let bench_name = format!("workloads/{bench}");
+
         println!("{bench}: Benching Shotover ...");
         latte.bench(
-            bench,
+            &bench_name,
             &args.shotover_address,
             &args.direct_address,
             &args.time,
@@ -49,7 +51,7 @@ fn main() {
 
         println!("{bench}: Benching Direct Cassandra ...");
         latte.bench(
-            bench,
+            &bench_name,
             &args.shotover_address,
             &args.shotover_address,
             &args.time,
@@ -58,8 +60,8 @@ fn main() {
 
         println!("{bench}: Direct Cassandra (A) vs Shotover (B)");
         latte.compare(
-            &format!("{bench}-{}.json", args.direct_address),
-            &format!("{bench}-{}.json", args.shotover_address),
+            &format!("{bench_name}-{}.json", args.direct_address),
+            &format!("{bench_name}-{}.json", args.shotover_address),
         );
     }
 }
