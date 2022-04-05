@@ -6,7 +6,7 @@ const INSERT = "insert";
 const READ = "read";
 
 const KEYSPACE = "latte";
-const TABLE = "basic";
+const TABLE = "basic_read";
 
 pub async fn schema(ctx) {
     ctx.execute(`CREATE KEYSPACE IF NOT EXISTS ${KEYSPACE} \

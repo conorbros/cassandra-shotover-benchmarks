@@ -3,7 +3,7 @@ const BLOB_SIZE = latte::param!("blob_size", 16);
 const INSERT = "insert";
 
 const KEYSPACE = "latte";
-const TABLE = "blob";
+const TABLE = "write_blob";
 
 pub async fn schema(db) {
     db.execute(`CREATE KEYSPACE IF NOT EXISTS ${KEYSPACE} \

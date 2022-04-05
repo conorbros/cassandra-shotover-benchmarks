@@ -3,7 +3,7 @@
 const INSERT = "insert";
 
 const KEYSPACE = "latte";
-const TABLE = "basic";
+const TABLE = "basic_write";
 
 pub async fn schema(db) {
     db.execute(`CREATE KEYSPACE IF NOT EXISTS ${KEYSPACE} \
