@@ -7,8 +7,8 @@ chain_config:
   main_chain:
     - RequestThrottling:
         max_requests_per_second: 100000000
-    - CassandraPeersRewrite:
-        port: 9043
+    # - CassandraPeersRewrite:
+    #     port: 9043
     - CassandraSinkSingle:
         remote_address: "127.0.0.1:9042"
 named_topics:
