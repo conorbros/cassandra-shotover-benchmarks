@@ -37,6 +37,8 @@ wget https://raw.githubusercontent.com/conorbros/cassandra-shotover-benchmarks/m
 sudo mv topology.yaml /etc/shotover/config/
 
 sudo systemctl start shotover
+
+wget -O /home/ec2-user https://raw.githubusercontent.com/conorbros/cassandra-shotover-benchmarks/master/setup_perf_tools.sh
 HERE
 
   metadata_options {
