@@ -67,14 +67,14 @@ fn main() {
             threads,
         );
 
-        println!("{bench}: Direct Cassandra (A) vs Shotover (B)");
+        println!("{bench}: Shotover (A) vs Direct Cassandra (B)");
         latte.compare(
             &format!(
-                "{bench_name}-Cassandra-rate_{}-connections_{}-duration_{}-threads_{}.json",
+                "{bench_name}-Shotover-rate_{}-connections_{}-duration_{}-threads_{}.json",
                 args.rate, args.connections, args.time, threads
             ),
             &format!(
-                "{bench_name}-Shotover-rate_{}-connections_{}-duration_{}-threads_{}.json",
+                "{bench_name}-Cassandra-rate_{}-connections_{}-duration_{}-threads_{}.json",
                 args.rate, args.connections, args.time, threads
             ),
         );
