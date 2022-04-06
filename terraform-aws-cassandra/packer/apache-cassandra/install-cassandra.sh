@@ -35,6 +35,8 @@ wget https://github.com/shotover/shotover-proxy/releases/download/v0.1.2/shotove
 tar -xf shotover-proxy-linux_amd64-0.1.2.tar.gz
 
 sudo mv shotover/shotover-proxy /usr/bin/shotover-proxy
+rm -r shotover
+rm shotover-proxy-linux_amd64-0.1.2.tar.gz
 
 wget https://raw.githubusercontent.com/shotover/shotover-proxy/main/shotover-proxy/config/config.yaml
 
