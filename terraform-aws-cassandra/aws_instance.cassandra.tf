@@ -6,6 +6,7 @@ resource "aws_instance" "cassandra" {
   monitoring    = true
   private_ip    = var.private_ips[count.index]
   ebs_optimized = true
+  key_name      = "benchmark_runner_key"
 
   root_block_device {
     volume_type           = "standard"
