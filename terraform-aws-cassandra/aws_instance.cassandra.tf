@@ -42,7 +42,7 @@ wget -O /home/ec2-user/setup_perf_tools.sh https://raw.githubusercontent.com/con
 wget -O /home/ec2-user/replace_shotover_bin.sh https://raw.githubusercontent.com/conorbros/cassandra-shotover-benchmarks/master/replace_shotover_bin.sh
 sudo chown ec2-user ./setup_perf_tools.sh
 sudo chown ec2-user ./replace_shotover_bin.sh
-chmod +x *.sh
+sudo chmod +x *.sh
 HERE
 
   metadata_options {
@@ -67,7 +67,7 @@ resource "aws_key_pair" "benchmark_runner_key" {
 
 resource "aws_instance" "benchmark_runner" {
   ami                    = data.aws_ami.ubuntu.id
-  instance_type          = "t2.large"
+  instance_type          = "c6i.xlarge"
   vpc_security_group_ids = [aws_security_group.cassandra.id]
   key_name               = "benchmark_runner_key"
 
