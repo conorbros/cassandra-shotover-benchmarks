@@ -38,13 +38,26 @@ sudo mv topology.yaml /etc/shotover/config/
 
 sudo systemctl start shotover
 
-wget -O /home/ec2-user https://raw.githubusercontent.com/conorbros/cassandra-shotover-benchmarks/master/setup_perf_tools.sh
+wget -O /home/ec2-user/setup_perf_tools.sh https://raw.githubusercontent.com/conorbros/cassandra-shotover-benchmarks/master/setup_perf_tools.sh
+wget -O /home/ec2-user/replace_shotover_bin.sh https://raw.githubusercontent.com/conorbros/cassandra-shotover-benchmarks/master/replace_shotover_bin.sh
+sudo chown ec2-user ./setup_perf_tools.sh
+sudo chown ec2-user ./replace_shotover_bin.sh
+chmod +x *.sh
 HERE
 
   metadata_options {
     http_endpoint = "enabled"
     http_tokens   = "optional"
   }
+
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ec2-user"
+    private_key = file("/home/conor/.ssh/keys/aws")
+    timeout     = "4m"
+  }
+
 }
 
 resource "aws_key_pair" "benchmark_runner_key" {
