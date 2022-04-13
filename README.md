@@ -13,9 +13,9 @@ packer build benchmark_runner
 
 ## Apply Terraform
 
-1. Create an ssh key and put it in `.ssh/aws_key`.
+Create an ssh key and name it `.ssh/aws_key`.
 
-2. Run following commands in the `example/examplea` dir: `terraform apply -auto-approve`
+Run `terraform apply -auto-approve` in the `example/examplea` dir:
 
 # Run benches
 
@@ -25,18 +25,20 @@ packer build benchmark_runner
 
 Run `bench_workflow.sh` in `cassandra-latte-benches`.
 
+Use scp to transfer results to local machine.
+
 TODO add instructions for cassandra-stress
 
 # Profile Shotover
 
-1. ssh into one of the Cassandra node machines.
+ssh into one of the Cassandra node machines.
 
-2. `setup_perf_tools.sh`.
+`setup_perf_tools.sh`.
 
-3. `sudo perf record --call-graph dwarf -p $(pgrep shotover)`.
+`sudo perf record --call-graph dwarf -p $(pgrep shotover)`.
 
-4. Run desired benchmarks from the BenchmarkRunner machine.
+Run desired benchmarks from the BenchmarkRunner machine.
 
-5. Return to Cassandra machine, stop the `perf record` process and then use `` to generate a flamegraph.
+ Return to Cassandra machine, stop the `perf record` process and then use `sudo perf script | inferno-collapse-perf | inferno-flamegraph > perf.svg` to generate a flamegraph.
 
-6. Use scp to transfer flamegraph to local machine
+Use scp to transfer flamegraph to local machine
