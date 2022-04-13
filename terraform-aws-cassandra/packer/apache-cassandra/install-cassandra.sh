@@ -14,6 +14,12 @@ repo_gpgcheck=1
 gpgkey=https://www.apache.org/dist/cassandra/KEYS
 EOF
 
+
+#!/bin/bash
+
+
+set -e
+
 sudo yum update -y
 
 sudo yum install cassandra -y
@@ -31,12 +37,19 @@ sudo rm -rf /var/lib/cassandra/data/system/*
 ### INSTALL SHOTOVER
 ###
 
-wget https://github.com/shotover/shotover-proxy/releases/download/v0.1.2/shotover-proxy-linux_amd64-0.1.2.tar.gz
-tar -xf shotover-proxy-linux_amd64-0.1.2.tar.gz
+sudo yum install git openssl-devel openssl perf -y
+sudo yum groupinstall "Development Tools" -y
 
-sudo mv shotover/shotover-proxy /usr/bin/shotover-proxy
-rm -r shotover
-rm shotover-proxy-linux_amd64-0.1.2.tar.gz
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source $HOME/.cargo/env
+
+git clone https://github.com/shotover/shotover-proxy
+cd shotover-proxy
+cargo build --release
+
+cd ..
+sudo mv shotover-proxy/target/release/shotover-proxy /usr/bin/shotover-proxy
+sudo rm -r shotover-proxy
 
 wget https://raw.githubusercontent.com/shotover/shotover-proxy/main/shotover-proxy/config/config.yaml
 

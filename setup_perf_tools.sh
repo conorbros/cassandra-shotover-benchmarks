@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 # install deps
 
 sudo yum update -y
@@ -13,7 +16,7 @@ cargo install inferno
 # install shotover
 git clone https://github.com/conorbros/shotover-proxy
 cd shotover-proxy
-git checkout --branch benches
+git checkout benches
 
 
 # build shotover and replace existing binary
