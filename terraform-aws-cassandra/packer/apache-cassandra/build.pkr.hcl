@@ -5,6 +5,6 @@ build {
 
   provisioner "shell" {
     script  = "${path.root}/install-cassandra.sh"
-    timeout = "380s"
+    timeout = "18000s"
   }
 }
