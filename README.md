@@ -33,7 +33,15 @@ TODO add instructions for cassandra-stress
 
 ssh into one of the Cassandra node machines.
 
+Install the required tools and recompile Shotover with debug symbols enabled.
+
 `setup_perf_tools.sh`.
+
+Replace the Shotover binary and restart the service.
+
+`replace_shotover_bin.sh`.
+
+Start recording perf data.
 
 `sudo perf record --call-graph dwarf -p $(pgrep shotover)`.
 

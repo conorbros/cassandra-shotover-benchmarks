@@ -16,7 +16,7 @@ cargo install inferno
 # install shotover
 git clone https://github.com/conorbros/shotover-proxy
 cd shotover-proxy
-git checkout benches
+git checkout rewrite-peers
 
 
 # build shotover and replace existing binary
