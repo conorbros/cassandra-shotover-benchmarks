@@ -6,7 +6,7 @@ sources:
 chain_config:
   main_chain:
     - RequestThrottling:
-        max_requests_per_second: 100000000
+        max_requests_per_second: 40000
     - CassandraPeersRewrite:
         port: 9043
     - CassandraSinkSingle:
