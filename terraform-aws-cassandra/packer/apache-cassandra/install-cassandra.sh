@@ -43,9 +43,8 @@ sudo yum groupinstall "Development Tools" -y
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 source $HOME/.cargo/env
 
-git clone https://github.com/conorbros/shotover-proxy
+git clone https://github.com/shotover/shotover-proxy
 cd shotover-proxy
-git checkout rewrite-peers
 cargo build --release
 
 cd ..
